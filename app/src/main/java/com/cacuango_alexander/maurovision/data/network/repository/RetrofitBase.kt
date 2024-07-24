@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBase {
 
-    private const val TMDB_URL = ""
+    private const val TMDB_URL = "https://api.themoviedb.org/3/movie/11"
 
     fun getRetrofitTmdbConnection(): Retrofit {
         return Retrofit.Builder()
