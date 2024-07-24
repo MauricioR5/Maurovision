@@ -1,14 +1,10 @@
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
+
+        maven ( url = "https://jitpack.io")
     }
 }
 dependencyResolutionManagement {
@@ -16,8 +12,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+
+        maven ( url = "https://jitpack.io")
     }
 }
+
 
 rootProject.name = "Maurovision"
 include(":app")
