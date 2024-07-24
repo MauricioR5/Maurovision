@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "271627050427",
+    "project_id": "maurovision-c27ba",
+    "storage_bucket": "maurovision-c27ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271627050427:android:0523552502d936ccccb89e",
+        "android_client_info": {
+          "package_name": "com.cacuango_alexander.maurovision"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPY4NGFGqmGFKBLCR_sagMOHzIxev32dg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
