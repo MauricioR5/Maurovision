@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Movie_App</string>
+    <string name="txt_cine_go">CineGo</string>
+    <string name="txt_start_session">Inicia sesión con tu cuenta de CineGo</string>
+    <string name="txt_insert_user">Correo</string>
+    <string name="txt_insert_password">Contraseña</string>
+    <string name="link_register">¿No tienes cuenta? Registrate</string>
+    <string name="txt_access">Ingresar con:</string>
+    <string name="txt_welcome">Bienvenido %s</string>
+
+    <string name="txt_name">Nombre</string>
+    <string name="txt_lastName">Apellido</string>
+    <string name="txt_genre">Genero</string>
+    <string name="txt_date">Fecha de nacimiento</string>
+    <string name="txt_confirm_password">Confirmación de contraseña</string>
+    <string name="link_to_login">¿Ya tienes una cuenta? Inicia sesión</string>
+    <string name="btn_register">Registrarse</string>
+    <string name="txt_start_register">Llena los siguientes campos para crear tu cuenta de CineGo</string>
+
+    <string name="bnt_return">Regresar</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="biometric_no_hardware">El dispositivo no posee un sensor biométrico</string>
+    <string name="title_dialog_warning">Advertencia</string>
+    <string name="aceptar">Vamos allá</string>
+    <string name="txt_dialog_login">Existen campos vacios que debe llenar</string>
+    <string name="txt_dialog_register">Existen campos obligariorios que deben ser llenados</string>
+    <string name="movie_poster">Poster de la película</string>
+
+</resources>
