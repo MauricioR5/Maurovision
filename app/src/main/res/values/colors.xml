@@ -14,7 +14,7 @@
     <color name="celeste_am">#089cf6</color>
     <color name="dark_green">#0B5563</color>
     <color name="beige">#E8D6CB</color>
-    <!-- Movie App -->
+
     <color name="blue">#0066D0</color>
     <color name="light_blue">#99C2EC</color>
     <color name="Turquoise">#04ADAD</color>
@@ -23,7 +23,7 @@
     <color name="light_green">#A0DD9F</color>
     <color name="violet">#541EB5</color>
     <color name="light_violet">#BAA5E1</color>
-    <color name="gray">#A0A0A0</color>
+
 
 
 </resources>

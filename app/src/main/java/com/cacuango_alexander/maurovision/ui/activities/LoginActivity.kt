@@ -97,10 +97,11 @@ class LoginActivity : AppCompatActivity() {
             when(code){
                 BiometricManager.BIOMETRIC_SUCCESS -> {
                     binding.imgfinger.visibility = View.VISIBLE
-                    binding.txtFinger.visibility = View.VISIBLE
+
                 }
                 BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
-                    binding.txtFinger.text = getString(R.string.biometric_no_hardware)
+                    binding.imgfinger.visibility = View.VISIBLE
+                    binding.imgfinger.setImageResource(R.drawable.fingerprint)
                 }
                 BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
                     Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")

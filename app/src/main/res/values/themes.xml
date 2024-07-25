@@ -1,12 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Movie_App" parent="Theme.Material3.DayNight.NoActionBar">
+
+    <style name="Theme.Maurovision." parent="Theme.Material3.DayNight.NoActionBar">
+
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Movie_App" parent="Base.Theme.Movie_App">
-        <item name="colorPrimary">@color/blue_dark</item>
+    <style name="Theme.Maurovision" parent="Theme.Maurovision.">
+
+        <item name="colorPrimary">@color/black</item>
     </style>
 
     <style name="theme_normal">
@@ -52,7 +55,7 @@
         <item name="android:textAlignment">center</item>
     </style>
     <style name="theme_buttom">
-        <item name="android:fontFamily">@font/black_ops_one_regular</item>
+        <item name="android:fontFamily">@font/marcellus_regular</item>
         <item name="android:textSize">20dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_marginTop">20dp</item>
@@ -64,5 +67,9 @@
         <item name="android:layout_height">70dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="TextInputHintStyle">
+        <item name="hintTextColor">@color/white</item>
     </style>
 </resources>
