@@ -19,7 +19,7 @@ import com.cacuango_alexander.maurovision.ui.viewmodels.ListPopularsViewModel
 class ListPopularsFragment : Fragment() {
 
     private lateinit var binding: FragmentListPopularsBinding
-    private val adapter = ListMoviesAdapter { selectMovie(it) } // Cambia aquí al ListMoviesAdapter
+    private val adapter = ListMoviesAdapter() // Cambia aquí al ListMoviesAdapter
     private val viewModel: ListPopularsViewModel by viewModels()
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class ListPopularsFragment : Fragment() {
     private fun initObservers() {
         viewModel.listItems.observe(viewLifecycleOwner) {
             binding.animationView.visibility = View.VISIBLE
-            adapter.submitList(it)
+            //adapter.submitList(it)
             binding.animationView.visibility = View.GONE
         }
 

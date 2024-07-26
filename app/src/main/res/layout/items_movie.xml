@@ -33,20 +33,20 @@
 
             <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
                 android:id="@+id/circularProgress"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:textColor="@color/dark_green"
-                app:formattingPattern="%.1f"
+                android:layout_width="204dp"
+                android:layout_height="184dp"
                 app:direction="clockwise"
-                app:textSize="14dp"
-                app:fillBackground="true"
-                app:progressBackgroundColor="@color/transp_white"
                 app:dotWidth="6dp"
-                app:progressStrokeWidth="3dp"
-                app:progressColor="@color/dark_green"
-
+                app:fillBackground="true"
+                app:formattingPattern="%.1f"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:progressBackgroundColor="@color/transp_white"
+                app:progressColor="@color/dark_green"
+                app:progressStrokeWidth="3dp"
+
+                app:textColor="@color/dark_green"
+                app:textSize="14dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

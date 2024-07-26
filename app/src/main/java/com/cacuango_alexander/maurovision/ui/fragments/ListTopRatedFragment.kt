@@ -19,7 +19,7 @@ import com.cacuango_alexander.maurovision.ui.viewmodels.ListTopRatedViewModel
 class ListTopRatedFragment : Fragment() {
 
     private lateinit var binding: FragmentListTopRatedBinding
-    private val adapter = ListMoviesAdapter { selectMovie(it) } // Cambia aquí al ListMoviesAdapter
+    private val adapter = ListMoviesAdapter() // Cambia aquí al ListMoviesAdapter
     private val viewModel: ListTopRatedViewModel by viewModels()
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class ListTopRatedFragment : Fragment() {
     private fun initObservers() {
         viewModel.listItems.observe(viewLifecycleOwner) {
             binding.animationView.visibility = View.VISIBLE
-            adapter.submitList(it)
+            //     adapter.submitList(it)
             binding.animationView.visibility = View.GONE
         }
 

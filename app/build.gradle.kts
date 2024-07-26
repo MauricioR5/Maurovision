@@ -1,9 +1,10 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
     id("androidx.navigation.safeargs.kotlin")
+
     id("com.google.gms.google-services")
-    id("kotlin-kapt") // Añadido para kapt
 
 }
 
@@ -19,6 +20,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 
     buildTypes {
@@ -37,61 +41,75 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
     }
+
+
 }
 
+
+
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.legacy.support.v4)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    //Navigation Components
+    implementation(libs.bundles.navigationComponent)
+
+    implementation(libs.bundles.retrofit)
+    implementation(libs.coil)
+    implementation(libs.lottieLib)
+
+    // RecyclerView
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0") // Usar kapt
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    ksp(libs.room.compiler)
 
-    // Retrofit (API)
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.biometric:biometric:1.1.0")
 
-    // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    // SplashScreen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
-    // Image load implementation
-    implementation("io.coil-kt:coil:2.5.0")
-    implementation("com.airbnb.android:lottie:6.2.0")
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
-    // Navigation Component
-    val nav_version = "2.5.3"
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
+    // Fragment, activity viewmodel
+    implementation("androidx.fragment:fragment-ktx:1.8.0")
+    implementation("androidx.activity:activity-ktx:1.9.0")
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
     // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("androidx.activity:activity:1.8.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.2")
 
-    // Biometric Kotlin
-    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha05")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+    // Firebase SDK
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth:23.0.0")
 
-    // Swipe
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth-ktx")
 
-    // CircularProgressIndicator (Eliminado si no se usa)
-    implementation("com.github.antonKozyriatskyi:CircularProgressIndicator:1.3.0")
-    implementation("io.insert-koin:koin-android:3.2.2")
+    implementation ("com.github.AntonKozyriatskyi:CircularProgressIndicator:1.3.0")
+
+    // Declare the dependency for the Cloud Firestore library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-firestore")
 }

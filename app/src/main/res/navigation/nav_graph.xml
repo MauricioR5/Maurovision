@@ -10,9 +10,9 @@
         android:name="com.cacuango_alexander.maurovision.ui.fragments.ListNowPlayingFragment"
         android:label="fragment_list_now_playing"
         tools:layout="@layout/fragment_list_now_playing">
-        <action
-            android:id="@+id/action_listNowPlayingFragment_to_detailedMovieFragment"
-            app:destination="@id/detailedMovieFragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_listNowPlayingFragment_to_detailedMovieFragment"-->
+<!--            app:destination="@id/detailedMovieFragment" />-->
     </fragment>
     <fragment
         android:id="@+id/detailedMovieFragment"

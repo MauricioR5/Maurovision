@@ -1,4 +1,5 @@
 package com.cacuango_alexander.maurovision.ui.activities;
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,9 +19,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 import java.util.concurrent.Executor
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
@@ -28,9 +32,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var dialog: AlertDialog
+    private val activityScope = CoroutineScope(Dispatchers.Main + Job())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+        Log.d("LoginActivity", "onCreate called")
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -41,7 +48,37 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.checkBiometric(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("LoginActivity", "onStart called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("LoginActivity", "onResume called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("LoginActivity", "onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("LoginActivity", "onStop called")
+        if (this::dialog.isInitialized && dialog.isShowing) {
+            dialog.dismiss()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loginViewModel.resultCheckBiometric.removeObservers(this)
+        activityScope.cancel()
+    }
+
     private fun initListeners() {
+        Log.d("LoginActivity", "initListeners called")
         binding.btnAccess.setOnClickListener {
             val user = binding.txtInputUser.text.toString()
             val password = binding.txtInputPassword.text.toString()
@@ -69,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun autenticationVariables() {
+        Log.d("LoginActivity", "autenticationVariables called")
         executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
@@ -86,6 +124,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initObservables() {
+        Log.d("LoginActivity", "initObservables called")
         loginViewModel.resultCheckBiometric.observe(this) { code ->
             when (code) {
                 BiometricManager.BIOMETRIC_SUCCESS -> {
@@ -112,20 +151,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signInUsers(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                } else {
-                    Log.w("TAG", "signInWithEmail:failure", task.exception)
-                    Snackbar.make(
-                        binding.root,
-                        "signInWithEmail:failure",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                    binding.txtInputUser.text?.clear()
-                    binding.txtInputPassword.text?.clear()
+        Log.d("LoginActivity", "signInUsers called with email: $email")
+        activityScope.launch {
+            try {
+                auth.signInWithEmailAndPassword(email, password).await()
+                Log.d("LoginActivity", "signInWithEmail:success")
+                // Espera a que todas las operaciones en curso se completen antes de iniciar MainActivity
+                binding.root.post {
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 }
+            } catch (e: Exception) {
+                Log.w("LoginActivity", "signInWithEmail:failure", e)
+                Snackbar.make(
+                    binding.root,
+                    "signInWithEmail:failure",
+                    Snackbar.LENGTH_LONG
+                ).show()
+                binding.txtInputUser.text?.clear()
+                binding.txtInputPassword.text?.clear()
             }
+        }
     }
 }

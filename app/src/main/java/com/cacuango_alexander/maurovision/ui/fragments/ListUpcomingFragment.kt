@@ -14,12 +14,13 @@ import com.cacuango_alexander.maurovision.R
 import com.cacuango_alexander.maurovision.data.network.entities.movie.ResultsMovies
 import com.cacuango_alexander.maurovision.databinding.FragmentListUpcomingBinding
 import com.cacuango_alexander.maurovision.ui.adapters.ListMoviesAdapter
+import com.cacuango_alexander.maurovision.ui.core.toMoviesInfoUI
 import com.cacuango_alexander.maurovision.ui.viewmodels.ListUpcomingViewModel
 
 class ListUpcomingFragment : Fragment() {
 
     private lateinit var binding: FragmentListUpcomingBinding
-    private val adapter = ListMoviesAdapter { selectMovie(it) } // Cambia aquí al ListMoviesAdapter
+    private val adapter = ListMoviesAdapter () // Cambia aquí al ListMoviesAdapter
     private val viewModel: ListUpcomingViewModel by viewModels()
 
     override fun onCreateView(
@@ -39,17 +40,20 @@ class ListUpcomingFragment : Fragment() {
         viewModel.getAllUpcoming()
     }
 
-    private fun initObservers() {
-        viewModel.listItems.observe(viewLifecycleOwner) {
-            binding.animationView.visibility = View.VISIBLE
-            adapter.submitList(it)
-            binding.animationView.visibility = View.GONE
+  private fun initObservers() {
+    viewModel.listItems.observe(viewLifecycleOwner) {
+        binding.animationView.visibility = View.VISIBLE
+        val moviesInfoUIList = it.map { resultMovie ->
+            resultMovie.toMoviesInfoUI()
         }
-
-        viewModel.error.observe(viewLifecycleOwner) {
-            adapter.submitList(emptyList())
-        }
+        (binding.rvUsers.adapter as ListMoviesAdapter).submitList(moviesInfoUIList)
+        binding.animationView.visibility = View.GONE
     }
+
+    viewModel.error.observe(viewLifecycleOwner) {
+        adapter.submitList(emptyList())
+    }
+}
 
     private fun initRecyclerView() {
         binding.rvUsers.adapter = adapter
