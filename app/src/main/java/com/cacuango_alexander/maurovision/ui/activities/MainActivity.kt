@@ -2,66 +2,65 @@ package com.cacuango_alexander.maurovision.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.cacuango_alexander.maurovision.R
-import com.cacuango_alexander.maurovision.databinding.ActivityMainBinding
-import com.cacuango_alexander.maurovision.ui.fragments.ListNowPlayingFragment
-import com.cacuango_alexander.maurovision.ui.fragments.ListPopularsFragment
-import com.cacuango_alexander.maurovision.ui.fragments.ListTopRatedFragment
-import com.cacuango_alexander.maurovision.ui.fragments.ListUpcomingFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        initListeners()
+        // Obtener el NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.frm_container)
+        if (navHostFragment is NavHostFragment) {
+            // Obtener el NavController
+            navController = navHostFragment.navController
 
-    }
+            // Configurar el BottomNavigationView con el NavController
+            val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+            NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
-    private fun initListeners() {
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            val manager = supportFragmentManager
+            // Navegar a ListNowPlayingFragment por defecto solo si la actividad se está creando por primera vez
+            // y ListNowPlayingFragment no es el destino actual
+            if (savedInstanceState == null && navController.currentDestination?.id != R.id.listNowPlayingFragment) {
+                navController.navigate(R.id.listNowPlayingFragment)
+            }
 
-            when (item.itemId) {
-                R.id.it_new -> {
-                    val transaction = manager.beginTransaction()
-                    transaction.replace(binding.frmContainer.id, ListNowPlayingFragment())
-                    transaction.commit()
-                    true
-                }
+            // Establecer un OnItemSelectedListener en el BottomNavigationView
+            bottomNavigationView.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.listNowPlayingFragment -> {
+                        navController.navigate(R.id.listNowPlayingFragment)
+                        true
+                    }
 
-                R.id.it_popular -> {
-                    val transaction = manager.beginTransaction()
-                    transaction.replace(binding.frmContainer.id, ListPopularsFragment())
-                    transaction.commit()
-                    true
-                }
+                    R.id.listPopularsFragment -> {
+                        navController.navigate(R.id.listPopularsFragment)
+                        true
+                    }
 
-                R.id.it_rated -> {
-                    val transaction = manager.beginTransaction()
-                    transaction.replace(binding.frmContainer.id, ListTopRatedFragment())
-                    transaction.commit()
-                    true
-                }
+                    R.id.listTopRatedFragment -> {
+                        navController.navigate(R.id.listTopRatedFragment)
+                        true
+                    }
 
-                R.id.it_upcoming -> {
-                    val transaction = manager.beginTransaction()
-                    transaction.replace(binding.frmContainer.id, ListUpcomingFragment())
-                    transaction.commit()
-                    true
-                }
+                    R.id.listUpcomingFragment -> {
+                        navController.navigate(R.id.listUpcomingFragment)
+                        true
+                    }
 
-                else -> {
-                    false
+                    else -> false
                 }
             }
+        } else {
+            // Manejar el caso en que navHostFragment es nulo
+            // Puedes lanzar una excepción, mostrar un mensaje de error, etc.
         }
-
     }
-
-
 }

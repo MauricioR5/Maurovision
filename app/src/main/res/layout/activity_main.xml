@@ -11,13 +11,11 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frm_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,8 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navigation_menu_bar" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

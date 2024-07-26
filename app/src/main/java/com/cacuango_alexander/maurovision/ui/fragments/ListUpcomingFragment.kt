@@ -8,27 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cacuango_alexander.maurovision.R
 import com.cacuango_alexander.maurovision.data.network.entities.movie.ResultsMovies
 import com.cacuango_alexander.maurovision.databinding.FragmentListUpcomingBinding
-import com.cacuango_alexander.maurovision.ui.adapters.MovieAdapter
+import com.cacuango_alexander.maurovision.ui.adapters.ListMoviesAdapter
 import com.cacuango_alexander.maurovision.ui.viewmodels.ListUpcomingViewModel
-
 
 class ListUpcomingFragment : Fragment() {
 
     private lateinit var binding: FragmentListUpcomingBinding
-    private val adapter = MovieAdapter({selectMovie(it)})
-    private val viewModel : ListUpcomingViewModel by viewModels()
+    private val adapter = ListMoviesAdapter { selectMovie(it) } // Cambia aquí al ListMoviesAdapter
+    private val viewModel: ListUpcomingViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding =
-            FragmentListUpcomingBinding.bind(inflater.inflate(R.layout.fragment_list_upcoming, container, false))
+        binding = FragmentListUpcomingBinding.bind(inflater.inflate(R.layout.fragment_list_upcoming, container, false))
         return binding.root
     }
 
@@ -39,36 +37,32 @@ class ListUpcomingFragment : Fragment() {
         initObservers()
         initRecyclerView()
         viewModel.getAllUpcoming()
-
     }
 
     private fun initObservers() {
-        viewModel.listItems.observe(requireActivity()){
+        viewModel.listItems.observe(viewLifecycleOwner) {
             binding.animationView.visibility = View.VISIBLE
             adapter.submitList(it)
             binding.animationView.visibility = View.GONE
         }
 
-        viewModel.error.observe(requireActivity()){
-            adapter.listMovies = emptyList()
-            adapter.notifyDataSetChanged()
+        viewModel.error.observe(viewLifecycleOwner) {
+            adapter.submitList(emptyList())
         }
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         binding.rvUsers.adapter = adapter
-        binding.rvUsers.layoutManager = GridLayoutManager(
-            requireActivity(), 1, RecyclerView.HORIZONTAL, false)
+        binding.rvUsers.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.HORIZONTAL, false)
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
         binding.swiperv.setOnRefreshListener {
-            initRecyclerView()
             binding.swiperv.isRefreshing = false
         }
     }
 
-    private fun selectMovie(movie: ResultsMovies){
+    private fun selectMovie(movie: ResultsMovies) {
         Log.d("TAG", movie.id.toString())
         findNavController()
             .navigate(
@@ -76,5 +70,4 @@ class ListUpcomingFragment : Fragment() {
                     .actionListUpcomingFragmentToDetailedMovieFragment(movieId = movie.id)
             )
     }
-
 }

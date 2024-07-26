@@ -12,7 +12,20 @@
           "package_name": "com.cacuango_alexander.maurovision"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "271627050427-1ph212k7etli9e8l6shsjm66sv4h18c5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cacuango_alexander.maurovision",
+            "certificate_hash": "a789e505c817a122ea906ea6eaa3d48b3a30ab18"
+          }
+        },
+        {
+          "client_id": "271627050427-r9h061unhhr73kmk4rju2p278au44l6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAPY4NGFGqmGFKBLCR_sagMOHzIxev32dg"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271627050427-r9h061unhhr73kmk4rju2p278au44l6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -9,7 +9,7 @@
         android:id="@+id/listNowPlayingFragment"
         android:name="com.cacuango_alexander.maurovision.ui.fragments.ListNowPlayingFragment"
         android:label="fragment_list_now_playing"
-        tools:layout="@layout/fragment_list_now_playing" >
+        tools:layout="@layout/fragment_list_now_playing">
         <action
             android:id="@+id/action_listNowPlayingFragment_to_detailedMovieFragment"
             app:destination="@id/detailedMovieFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/detailedMovieFragment"
         android:name="com.cacuango_alexander.maurovision.ui.fragments.DetailedMovieFragment"
         android:label="fragment_detailed_movie"
-        tools:layout="@layout/fragment_detailed_movie" >
+        tools:layout="@layout/fragment_detailed_movie">
         <argument
             android:name="movieId"
             app:argType="integer"
@@ -28,7 +28,7 @@
         android:id="@+id/listTopRatedFragment"
         android:name="com.cacuango_alexander.maurovision.ui.fragments.ListTopRatedFragment"
         android:label="fragment_list_top_rated"
-        tools:layout="@layout/fragment_list_top_rated" >
+        tools:layout="@layout/fragment_list_top_rated">
         <action
             android:id="@+id/action_listTopRatedFragment_to_detailedMovieFragment"
             app:destination="@id/detailedMovieFragment" />
@@ -37,7 +37,7 @@
         android:id="@+id/listPopularsFragment"
         android:name="com.cacuango_alexander.maurovision.ui.fragments.ListPopularsFragment"
         android:label="fragment_list_populars"
-        tools:layout="@layout/fragment_list_populars" >
+        tools:layout="@layout/fragment_list_populars">
         <action
             android:id="@+id/action_listPopularsFragment_to_detailedMovieFragment"
             app:destination="@id/detailedMovieFragment" />
@@ -46,7 +46,7 @@
         android:id="@+id/listUpcomingFragment"
         android:name="com.cacuango_alexander.maurovision.ui.fragments.ListUpcomingFragment"
         android:label="fragment_list_upcoming"
-        tools:layout="@layout/fragment_list_upcoming" >
+        tools:layout="@layout/fragment_list_upcoming">
         <action
             android:id="@+id/action_listUpcomingFragment_to_detailedMovieFragment"
             app:destination="@id/detailedMovieFragment" />

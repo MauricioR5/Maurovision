@@ -8,27 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cacuango_alexander.maurovision.R
 import com.cacuango_alexander.maurovision.data.network.entities.movie.ResultsMovies
 import com.cacuango_alexander.maurovision.databinding.FragmentListTopRatedBinding
-import com.cacuango_alexander.maurovision.ui.adapters.MovieAdapter
+import com.cacuango_alexander.maurovision.ui.adapters.ListMoviesAdapter
 import com.cacuango_alexander.maurovision.ui.viewmodels.ListTopRatedViewModel
 
 class ListTopRatedFragment : Fragment() {
 
     private lateinit var binding: FragmentListTopRatedBinding
-    private val adapter = MovieAdapter({selectMovie(it)})
-    private val viewModel : ListTopRatedViewModel by viewModels()
+    private val adapter = ListMoviesAdapter { selectMovie(it) } // Cambia aquí al ListMoviesAdapter
+    private val viewModel: ListTopRatedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding =
-            FragmentListTopRatedBinding.bind(inflater.inflate(R.layout.fragment_list_top_rated, container, false))
+        binding = FragmentListTopRatedBinding.bind(inflater.inflate(R.layout.fragment_list_top_rated, container, false))
         return binding.root
     }
 
@@ -39,37 +37,32 @@ class ListTopRatedFragment : Fragment() {
         initObservers()
         initRecyclerView()
         viewModel.getAllTopRated()
-
     }
 
     private fun initObservers() {
-        viewModel.listItems.observe(requireActivity()){
+        viewModel.listItems.observe(viewLifecycleOwner) {
             binding.animationView.visibility = View.VISIBLE
             adapter.submitList(it)
             binding.animationView.visibility = View.GONE
         }
 
-        viewModel.error.observe(requireActivity()){
-            adapter.listMovies = emptyList()
-            adapter.notifyDataSetChanged()
+        viewModel.error.observe(viewLifecycleOwner) {
+            adapter.submitList(emptyList())
         }
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         binding.rvUsers.adapter = adapter
-        binding.rvUsers.layoutManager = GridLayoutManager(
-            requireActivity(), 1, RecyclerView.VERTICAL, false)
-
+        binding.rvUsers.layoutManager = LinearLayoutManager(requireActivity())
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
         binding.swiperv.setOnRefreshListener {
-            initRecyclerView()
             binding.swiperv.isRefreshing = false
         }
     }
 
-    private fun selectMovie(movie: ResultsMovies){
+    private fun selectMovie(movie: ResultsMovies) {
         Log.d("TAG", movie.id.toString())
         findNavController()
             .navigate(
@@ -77,5 +70,4 @@ class ListTopRatedFragment : Fragment() {
                     .actionListTopRatedFragmentToDetailedMovieFragment(movieId = movie.id)
             )
     }
-
 }

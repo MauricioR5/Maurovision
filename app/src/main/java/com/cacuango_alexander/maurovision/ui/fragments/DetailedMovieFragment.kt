@@ -19,62 +19,48 @@ import com.google.android.material.snackbar.Snackbar
 class DetailedMovieFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailedMovieBinding
-    val args: DetailedMovieFragmentArgs by navArgs()
-    private val viewModel : DetailedMovieViewModel by viewModels()
+    private val args: DetailedMovieFragmentArgs by navArgs()
+    private val viewModel: DetailedMovieViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding =
-            FragmentDetailedMovieBinding.bind(
-                inflater.inflate(R.layout.fragment_detailed_movie, container, false)) // CAMBIAR
-        // Inflate the layout for this fragment
+    ): View {
+        binding = FragmentDetailedMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding.txtIdAnime.text = args.idAnime.toString()
         initObservers()
-        initListener()
         Log.d("TAG_Detail", args.movieId.toString())
         viewModel.loadDetailedMovie(args.movieId)
     }
 
-    private fun initListener() {
-    }
-
-
-    private fun initObservers(){
+    private fun initObservers() {
         binding.svDetails.visibility = View.GONE
-        viewModel.MovieItem.observe(requireActivity()){movie ->
 
+        viewModel.MovieItem.observe(viewLifecycleOwner) { movie ->
             binding.animationView.visibility = View.VISIBLE
 
             binding.title.text = movie.title
             binding.description.text = movie.overview
-            binding.imgMovie.load(Constant.URL_IMG+movie.backdrop_path)
+            binding.imgMovie.load(Constant.URL_IMG + movie.backdrop_path)
             binding.budget.text = movie.budget.toString()
-            binding.logoCompanie.load(Constant.URL_IMG+movie.production_companies.first().logo_path)
-            binding.originCountry.text = movie.production_companies.first().origin_country
+            binding.logoCompanie.load(Constant.URL_IMG + movie.production_companies.firstOrNull()?.logo_path ?: "")
+            binding.originCountry.text = movie.production_companies.firstOrNull()?.origin_country ?: ""
             binding.popularity.text = movie.popularity.toString()
             binding.releaseDate.text = movie.release_date
             binding.revenue.text = movie.revenue.toString()
             binding.tagline.text = movie.tagline
-            binding.productionCompanies.text = movie.production_companies.first().name
+            binding.productionCompanies.text = movie.production_companies.firstOrNull()?.name ?: ""
 
             binding.svDetails.visibility = View.VISIBLE
             binding.animationView.visibility = View.GONE
         }
 
-        viewModel.error.observe(requireActivity()){errorMessage->
-            Snackbar
-                .make(requireActivity(), binding.cvMovie, errorMessage.toString(), Snackbar.LENGTH_LONG)
-                .show()
-
+        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            Snackbar.make(requireView(), errorMessage.toString(), Snackbar.LENGTH_LONG).show()
         }
     }
-
 }

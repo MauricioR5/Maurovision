@@ -1,24 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/it_new"
+        android:id="@+id/listNowPlayingFragment"
         android:enabled="true"
         android:icon="@drawable/icon_new"
         android:title="En cine"/>
     <item
-        android:id="@+id/it_popular"
+        android:id="@+id/listPopularsFragment"
         android:enabled="true"
         android:icon="@drawable/icon_popular"
         android:title="Populares"/>
     <item
-        android:id="@+id/it_rated"
+        android:id="@+id/listTopRatedFragment"
         android:enabled="true"
         android:icon="@drawable/icon_rated"
         android:title="Mas valorado"/>
     <item
-        android:id="@+id/it_upcoming"
+        android:id="@+id/listUpcomingFragment"
         android:enabled="true"
         android:icon="@drawable/icon_upcoming"
         android:title="Por estrenar"/>
-
 </menu>

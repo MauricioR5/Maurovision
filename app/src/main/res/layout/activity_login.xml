@@ -43,6 +43,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txt_input_user_layout"
+        style="@style/TextInputStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
@@ -51,27 +52,23 @@
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_log_in">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt_input_user"
-            style="@style/theme_normal"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
             android:hint="@string/txt_insert_user"
             android:imeOptions="actionNext"
-            android:inputType="text"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txt_input_password_layout"
+        style="@style/TextInputStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
@@ -80,21 +77,18 @@
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_input_user_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt_input_password"
-            style="@style/theme_normal"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_insert_password"
             android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:textColor="@color/transp_white" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

@@ -18,15 +18,14 @@ class ListNowPlayingViewModel : ViewModel() {
             val userCase = GetAllNowPlayingUsercase()
             val movieFlow = userCase.invoke()
 
-            movieFlow.collect{ movie ->
+            movieFlow.collect { movie ->
                 movie.onSuccess {
-                    listItems.postValue(it.toList())
+                    listItems.postValue(it.toList()) // Puedes usar setValue si estás en el hilo principal
                 }
                 movie.onFailure {
-                    error.postValue(it.message.toString())
+                    error.postValue(it.message.toString()) // Puedes considerar usar un mensaje más descriptivo
                 }
             }
-
         }
     }
 }
