@@ -6,7 +6,7 @@ import com.cacuango_alexander.maurovision.R
 import com.cacuango_alexander.maurovision.ui.fragments.ListNowPlayingFragment
 import com.cacuango_alexander.maurovision.ui.fragments.ListPopularsFragment
 import com.cacuango_alexander.maurovision.ui.fragments.ListTopRatedFragment
-import com.cacuango_alexander.maurovision.ui.fragments.ListUpcomingFragment
+import com.cacuango_alexander.maurovision.ui.fragments.ListDiscoverFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.listUpcomingFragment -> {
                     // Reemplazar el fragmento actual con ListUpcomingFragment
-                    replaceFragment(ListUpcomingFragment())
+                    replaceFragment(ListDiscoverFragment())
                     true
                 }
 

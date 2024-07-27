@@ -13,22 +13,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cacuango_alexander.maurovision.R
 import com.cacuango_alexander.maurovision.ui.entities.MoviesInfoUI
-import com.cacuango_alexander.maurovision.databinding.FragmentListTopRatedBinding
+import com.cacuango_alexander.maurovision.databinding.FragmentListDiscoverBinding
 import com.cacuango_alexander.maurovision.ui.adapters.ListMoviesAdapter
 import com.cacuango_alexander.maurovision.ui.adapters.OnMovieClickListener
-import com.cacuango_alexander.maurovision.ui.viewmodels.ListTopRatedViewModel
+import com.cacuango_alexander.maurovision.ui.viewmodels.ListDiscoverViewModel
 
-class ListTopRatedFragment : Fragment(), OnMovieClickListener {
+class ListDiscoverFragment : Fragment(), OnMovieClickListener {
 
-    private lateinit var binding: FragmentListTopRatedBinding
+    private lateinit var binding: FragmentListDiscoverBinding
     private lateinit var adapter: ListMoviesAdapter
-    private val viewModel: ListTopRatedViewModel by viewModels()
+    private val viewModel: ListDiscoverViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentListTopRatedBinding.bind(inflater.inflate(R.layout.fragment_list_top_rated, container, false))
+        binding = FragmentListDiscoverBinding.bind(inflater.inflate(R.layout.fragment_list_discover, container, false))
         return binding.root
     }
 
@@ -78,8 +78,8 @@ class ListTopRatedFragment : Fragment(), OnMovieClickListener {
         Log.d("TAG", movie.id.toString())
         findNavController()
             .navigate(
-                ListTopRatedFragmentDirections
-                    .actionListTopRatedFragmentToDetailedMovieFragment(movieId = movie.id)
+                ListDiscoverFragmentDirections
+                    .actionListDiscoverFragmentToDetailedMovieFragment(movieId = movie.id)
             )
     }
 }

@@ -1,35 +1,47 @@
 package com.cacuango_alexander.maurovision.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cacuango_alexander.maurovision.R
+import com.cacuango_alexander.maurovision.ui.entities.MoviesInfoUI
 import com.cacuango_alexander.maurovision.databinding.FragmentListNowPlayingBinding
 import com.cacuango_alexander.maurovision.ui.adapters.ListMoviesAdapter
+import com.cacuango_alexander.maurovision.ui.adapters.OnMovieClickListener
 import com.cacuango_alexander.maurovision.ui.viewmodels.ListNowPlayingViewModel
 
-class ListNowPlayingFragment : Fragment() {
+class ListNowPlayingFragment : Fragment(), OnMovieClickListener {
 
     private lateinit var binding: FragmentListNowPlayingBinding
-    private val adapter = ListMoviesAdapter()
+    private lateinit var adapter: ListMoviesAdapter
     private val viewModel: ListNowPlayingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Infla el layout usando el binding
-        binding = FragmentListNowPlayingBinding.bind(inflater.inflate(R.layout.fragment_list_now_playing, container, false))
+
+        binding = FragmentListNowPlayingBinding.bind(
+            inflater.inflate(
+                R.layout.fragment_list_now_playing,
+                container,
+                false
+            )
+        )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        adapter = ListMoviesAdapter(this) // Pasamos this al adaptador
 
         // Inicializa el RecyclerView
         initRecyclerView()
@@ -60,10 +72,19 @@ class ListNowPlayingFragment : Fragment() {
         binding.rvUsers.layoutManager = GridLayoutManager(requireActivity(), 2)
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
         binding.swiperv.setOnRefreshListener {
             initRecyclerView()
             binding.swiperv.isRefreshing = false
         }
+    }
+
+    override fun onMovieClick(movie: MoviesInfoUI) { // Implementamos el método onMovieClick
+        Log.d("TAG", movie.id.toString())
+        findNavController()
+            .navigate(
+                ListNowPlayingFragmentDirections
+                    .actionListNowPlayingFragmentToDetailedMovieFragment(movieId = movie.id)
+            )
     }
 }

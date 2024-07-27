@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface TopRatedEndpoint {
-    @GET("movie/top_rated")
+    @GET("movie/top_rated?language=en-US&page=1")
     suspend fun getAllTopRated(@Query("api_key") apiKey: String): Response<Movie>
 }

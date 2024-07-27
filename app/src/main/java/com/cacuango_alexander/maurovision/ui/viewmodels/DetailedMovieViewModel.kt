@@ -3,31 +3,27 @@ package com.cacuango_alexander.maurovision.ui.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cacuango_alexander.maurovision.data.network.entities.movie.DetailedMovie
 import com.cacuango_alexander.maurovision.logic.usercases.movie.GetDetailedMovieByIdUsercase
+import com.cacuango_alexander.maurovision.ui.entities.MoviesInfoUI1
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class DetailedMovieViewModel : ViewModel(){
+class DetailedMovieViewModel : ViewModel() {
 
-    val MovieItem = MutableLiveData<DetailedMovie>()
+    val movieItem = MutableLiveData<MoviesInfoUI1>()
     val error = MutableLiveData<String>()
 
-    fun loadDetailedMovie(movie_id: Int) {
+    fun loadDetailedMovie(movieId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val userCase = GetDetailedMovieByIdUsercase()
-            val movieFlow = userCase.invoke(movie_id) //
-
-            movieFlow.collect{movie ->
-                movie.onSuccess {
-                    MovieItem.postValue(it)
+            GetDetailedMovieByIdUsercase().invoke(movieId).collect { response ->
+                response.onSuccess { movie ->
+                    movieItem.postValue(movie)
                 }
-                movie.onFailure {
-                    error.postValue(it.message.toString())
+                response.onFailure { throwable ->
+                    error.postValue(throwable.message)
                 }
             }
-
         }
     }
-
 }

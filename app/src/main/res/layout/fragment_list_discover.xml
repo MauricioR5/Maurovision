@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transp_black"
-    tools:context=".ui.fragments.ListUpcomingFragment">
+    tools:context=".ui.fragments.ListDiscoverFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,9 +13,11 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperv"
-            android:layout_width="408dp"
-            android:layout_height="648dp"
+            android:layout_width="421dp"
+            android:layout_height="736dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -23,11 +25,9 @@
                 android:id="@+id/rvUsers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="200dp"
-                android:layout_centerInParent="true"
+                android:layout_marginLeft="20dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                android:layout_marginLeft="20dp"
                 android:padding="1dp" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

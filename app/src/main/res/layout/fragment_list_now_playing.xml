@@ -8,16 +8,16 @@
     tools:context=".ui.fragments.ListNowPlayingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="398dp"
-        android:layout_height="703dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperv"
-            android:layout_width="408dp"
-            android:layout_height="648dp"
+            android:layout_width="421dp"
+            android:layout_height="736dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -34,10 +34,11 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
-            android:layout_width="231dp"
-            android:layout_height="340dp"
+            android:layout_width="341dp"
+            android:layout_height="326dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/swiperv"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/swiperv"
             app:lottie_autoPlay="true"

@@ -2,7 +2,7 @@ package com.cacuango_alexander.maurovision.logic.usercases.movie
 
 import android.util.Log
 import com.cacuango_alexander.maurovision.core.Constant
-import com.cacuango_alexander.maurovision.data.network.endpoints.movie.PopularsEndpoint
+import com.cacuango_alexander.maurovision.data.network.endpoints.movie.DiscoverEndPoint
 import com.cacuango_alexander.maurovision.data.network.repository.RetrofitBase
 import com.cacuango_alexander.maurovision.ui.core.toMoviesInfoUI
 import com.cacuango_alexander.maurovision.ui.entities.MoviesInfoUI
@@ -12,25 +12,25 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class GetAllPopularsUsercase {
+class GetAllDiscoverUsercase {
     suspend operator fun invoke(): Flow<Result<List<MoviesInfoUI>>> = flow {
         val baseService = RetrofitBase.getRetrofitTmdbConnection()
-        val service = baseService.create(PopularsEndpoint::class.java)
-        val response = service.getAllPopulars(Constant.API_KEY)
+        val service = baseService.create(DiscoverEndPoint::class.java)
+        val response = service.getAllDiscover(Constant.API_KEY)
 
         if (response.isSuccessful) {
             val results = response.body()?.results
 
             if (results != null) {
                 val items = results.map {
-                    Log.d("GetAllPopularsUsercase", "Original poster path: ${it.poster_path}")
+                    Log.d("GetAllDiscoverUsercase", "Original poster path: ${it.poster_path}")
                     val movieInfoUI = it.toMoviesInfoUI()
-                    Log.d("GetAllPopularsUsercase", "Transformed poster path: ${movieInfoUI.poster_path}")
+                    Log.d("GetAllDiscoverUsercase", "Transformed poster path: ${movieInfoUI.poster_path}")
                     movieInfoUI
                 }
 
-                Log.d("GetAllPopularsUsercase", "Response from API: $results")
-                Log.d("GetAllPopularsUsercase", "Items to emit: $items")
+                Log.d("GetAllDiscoverUsercase", "Response from API: $results")
+                Log.d("GetAllDiscoverUsercase", "Items to emit: $items")
 
                 emit(Result.success(items))
             } else {

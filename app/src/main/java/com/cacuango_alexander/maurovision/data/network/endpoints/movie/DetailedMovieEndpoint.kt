@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface DetailedMovieEndpoint {
     @GET("movie/{movie_id}")
-    suspend fun getAllNowPlaying(@Path("movie_id") movie_id: Int, @Query("api_key") apiKey: String): Response<DetailedMovie>
+    suspend fun getAllNow(@Path("movie_id") movie_id: Int, @Query("api_key") apiKey: String): Response<DetailedMovie>
 
 }

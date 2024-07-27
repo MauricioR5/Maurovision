@@ -14,7 +14,7 @@ import com.cacuango_alexander.maurovision.core.Constant
 import com.cacuango_alexander.maurovision.databinding.FragmentDetailedMovieBinding
 import com.cacuango_alexander.maurovision.ui.viewmodels.DetailedMovieViewModel
 import com.google.android.material.snackbar.Snackbar
-
+import com.cacuango_alexander.maurovision.ui.core.toMoviesInfoUI1
 
 class DetailedMovieFragment : Fragment() {
 
@@ -40,12 +40,12 @@ class DetailedMovieFragment : Fragment() {
     private fun initObservers() {
         binding.svDetails.visibility = View.GONE
 
-        viewModel.MovieItem.observe(viewLifecycleOwner) { movie ->
+        viewModel.movieItem.observe(viewLifecycleOwner) { movie ->
             binding.animationView.visibility = View.VISIBLE
 
             binding.title.text = movie.title
             binding.description.text = movie.overview
-            binding.imgMovie.load(Constant.URL_IMG + movie.backdrop_path)
+            binding.imgMovie.load(Constant.URL_IMG + movie.poster_path)
             binding.budget.text = movie.budget.toString()
             binding.logoCompanie.load(Constant.URL_IMG + movie.production_companies.firstOrNull()?.logo_path ?: "")
             binding.originCountry.text = movie.production_companies.firstOrNull()?.origin_country ?: ""

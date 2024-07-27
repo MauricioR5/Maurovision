@@ -46,7 +46,7 @@
                 app:progressColor="@color/white"
                 app:progressStrokeWidth="3dp"
 
-                app:textColor="@color/transp_white"
+                app:textColor="@color/black"
                 app:textSize="14dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,12 @@ import com.cacuango_alexander.maurovision.core.Constant
 import com.cacuango_alexander.maurovision.databinding.ItemsMovieBinding
 import com.cacuango_alexander.maurovision.ui.entities.MoviesInfoUI
 
-class ListMoviesAdapter :
+// Define la interfaz OnMovieClickListener
+interface OnMovieClickListener {
+    fun onMovieClick(movie: MoviesInfoUI)
+}
+
+class ListMoviesAdapter(private val itemClick: OnMovieClickListener) :
     ListAdapter<MoviesInfoUI, ListMoviesAdapter.MovieVH>(DiffUtilMoviesCallback) {
 
     class MovieVH(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,7 +38,9 @@ class ListMoviesAdapter :
     }
 
     override fun onBindViewHolder(holder: MovieVH, position: Int) {
-        holder.render(getItem(position))
+        val movie = getItem(position)
+        holder.render(movie)
+        holder.itemView.setOnClickListener { itemClick.onMovieClick(movie) } // Llama al método onMovieClick cuando se selecciona una película
     }
 }
 

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface PopularsEndpoint {
-    @GET("movie/popular")
+    @GET("trending/movie/day?language=en-US")
     suspend fun getAllPopulars(@Query("api_key") apiKey: String): Response<Movie>
 }

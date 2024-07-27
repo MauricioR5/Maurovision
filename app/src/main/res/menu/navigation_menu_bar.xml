@@ -3,7 +3,7 @@
         android:id="@+id/listNowPlayingFragment"
         android:enabled="true"
         android:icon="@drawable/icon_new"
-        android:title="En cine"/>
+        android:title="En Cine"/>
     <item
         android:id="@+id/listPopularsFragment"
         android:enabled="true"
@@ -17,6 +17,6 @@
     <item
         android:id="@+id/listUpcomingFragment"
         android:enabled="true"
-        android:icon="@drawable/icon_upcoming"
+        android:icon="@drawable/icon_discover"
         android:title="Proximamente"/>
 </menu>
