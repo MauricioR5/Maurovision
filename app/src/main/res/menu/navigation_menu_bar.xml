@@ -18,5 +18,5 @@
         android:id="@+id/listUpcomingFragment"
         android:enabled="true"
         android:icon="@drawable/icon_upcoming"
-        android:title="Por estrenar"/>
+        android:title="Proximamente"/>
 </menu>

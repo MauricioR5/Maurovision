@@ -16,24 +16,28 @@ import kotlinx.coroutines.flow.flowOn
 class GetAllNowPlayingUsercase {
 
     suspend operator fun invoke() = flow {
-        var result: Result<List<ResultsMovies>>? = null
-
         val baseService = RetrofitBase.getRetrofitTmdbConnection()
         val service = baseService.create(NowPlayingEndpoint::class.java)
         val response = service.getAllNowPlaying(Constant.API_KEY)
 
         if (response.isSuccessful) {
-            val a = response.body()?.results
+            val results = response.body()?.results
 
-            val items = ArrayList<MoviesInfoUI>()
-            a?.forEach {
-                items.add(it.toMoviesInfoUI())
+            if (results != null) {
+                val items = results.map {
+                    Log.d("GetAllNowPlayingUsercase", "Original poster path: ${it.poster_path}")
+                    val movieInfoUI = it.toMoviesInfoUI()
+                    Log.d("GetAllNowPlayingUsercase", "Transformed poster path: ${movieInfoUI.poster_path}")
+                    movieInfoUI
+                }
+
+                Log.d("GetAllNowPlayingUsercase", "Response from API: $results")
+                Log.d("GetAllNowPlayingUsercase", "Items to emit: $items")
+
+                emit(Result.success(items))
+            } else {
+                emit(Result.failure(Exception("No results found")))
             }
-
-            Log.d("GetAllNowPlayingUsercase", "Response from API: $a")
-            Log.d("GetAllNowPlayingUsercase", "Items to emit: $items")
-
-            emit(Result.success(items.toList()))
         } else {
             emit(Result.failure(Exception("Error: ${response.errorBody()?.string()}")))
         }

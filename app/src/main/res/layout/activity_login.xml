@@ -58,7 +58,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt_input_user"
-            style="@style/TextInputEditTextStyle"
+            style="@style/theme_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_insert_user"
@@ -83,7 +83,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt_input_password"
-            style="@style/TextInputEditTextStyle"
+            style="@style/theme_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_insert_password"

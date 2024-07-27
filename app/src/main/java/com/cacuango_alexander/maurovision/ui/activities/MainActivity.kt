@@ -2,65 +2,73 @@ package com.cacuango_alexander.maurovision.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.cacuango_alexander.maurovision.R
+import com.cacuango_alexander.maurovision.ui.fragments.ListNowPlayingFragment
+import com.cacuango_alexander.maurovision.ui.fragments.ListPopularsFragment
+import com.cacuango_alexander.maurovision.ui.fragments.ListTopRatedFragment
+import com.cacuango_alexander.maurovision.ui.fragments.ListUpcomingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
+    private var fragmentCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Obtener el NavHostFragment
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.frm_container)
-        if (navHostFragment is NavHostFragment) {
-            // Obtener el NavController
-            navController = navHostFragment.navController
+        // Configurar el BottomNavigationView
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-            // Configurar el BottomNavigationView con el NavController
-            val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-            NavigationUI.setupWithNavController(bottomNavigationView, navController)
-
-            // Navegar a ListNowPlayingFragment por defecto solo si la actividad se está creando por primera vez
-            // y ListNowPlayingFragment no es el destino actual
-            if (savedInstanceState == null && navController.currentDestination?.id != R.id.listNowPlayingFragment) {
-                navController.navigate(R.id.listNowPlayingFragment)
-            }
-
-            // Establecer un OnItemSelectedListener en el BottomNavigationView
-            bottomNavigationView.setOnItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.listNowPlayingFragment -> {
-                        navController.navigate(R.id.listNowPlayingFragment)
-                        true
-                    }
-
-                    R.id.listPopularsFragment -> {
-                        navController.navigate(R.id.listPopularsFragment)
-                        true
-                    }
-
-                    R.id.listTopRatedFragment -> {
-                        navController.navigate(R.id.listTopRatedFragment)
-                        true
-                    }
-
-                    R.id.listUpcomingFragment -> {
-                        navController.navigate(R.id.listUpcomingFragment)
-                        true
-                    }
-
-                    else -> false
+        // Establecer el OnItemSelectedListener en el BottomNavigationView
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.listNowPlayingFragment -> {
+                    // Reemplazar el fragmento actual con ListNowPlayingFragment
+                    replaceFragment(ListNowPlayingFragment())
+                    true
                 }
+
+                R.id.listPopularsFragment -> {
+                    // Reemplazar el fragmento actual con ListPopularsFragment
+                    replaceFragment(ListPopularsFragment())
+                    true
+                }
+
+                R.id.listTopRatedFragment -> {
+                    // Reemplazar el fragmento actual con ListTopRatedFragment
+                    replaceFragment(ListTopRatedFragment())
+                    true
+                }
+
+                R.id.listUpcomingFragment -> {
+                    // Reemplazar el fragmento actual con ListUpcomingFragment
+                    replaceFragment(ListUpcomingFragment())
+                    true
+                }
+
+                else -> false
             }
-        } else {
-            // Manejar el caso en que navHostFragment es nulo
-            // Puedes lanzar una excepción, mostrar un mensaje de error, etc.
         }
+
+        // Cargar el fragmento inicial si no hay ninguno cargado
+        if (savedInstanceState == null) {
+            bottomNavigationView.selectedItemId = R.id.listNowPlayingFragment
+        }
+    }
+
+    private fun replaceFragment(fragment: androidx.fragment.app.Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment) // Reemplaza el fragmento en el contenedor
+
+        // Agrega la transacción a la pila de retroceso solo si fragmentCount es impar
+        if (fragmentCount % 2 != 0) {
+            transaction.addToBackStack(null) // Opcional: agrega la transacción a la pila de retroceso
+        }
+
+        transaction.commit()
+
+        // Incrementa fragmentCount
+        fragmentCount++
     }
 }

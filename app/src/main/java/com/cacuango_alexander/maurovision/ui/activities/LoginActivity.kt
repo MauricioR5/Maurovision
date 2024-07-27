@@ -1,6 +1,7 @@
 package com.cacuango_alexander.maurovision.ui.activities;
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -23,6 +24,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.Executor
 
+
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -36,8 +38,12 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        // Debe llamar a setTheme() antes de super.onCreate() y setContentView()
+        setTheme(R.style.SplashTheme) // Reemplaza 'Theme_Maurovision' con tu tema principal
+
         super.onCreate(savedInstanceState)
         Log.d("LoginActivity", "onCreate called")
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -47,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
         autenticationVariables()
         loginViewModel.checkBiometric(this)
     }
+
 
     override fun onStart() {
         super.onStart()

@@ -23,6 +23,7 @@ class ListNowPlayingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Infla el layout usando el binding
         binding = FragmentListNowPlayingBinding.bind(inflater.inflate(R.layout.fragment_list_now_playing, container, false))
         return binding.root
     }
@@ -30,25 +31,39 @@ class ListNowPlayingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Inicializa el RecyclerView
         initRecyclerView()
-        binding.animationView.visibility = View.VISIBLE // Muestra la animación antes de cargar los datos
+        initListeners()
+
+        // Muestra la animación antes de cargar los datos
+        binding.animationView.visibility = View.VISIBLE
         viewModel.initData()
 
-        // Observar los datos del ViewModel
+        // Observa los datos del ViewModel
         viewModel.listItems.observe(viewLifecycleOwner, { movies ->
-            // Actualizar el adaptador con las películas
+            // Actualiza el adaptador con las películas
             adapter.submitList(movies)
-            binding.animationView.visibility = View.GONE // Oculta la animación después de que los datos se hayan cargado
+            // Oculta la animación después de que los datos se hayan cargado
+            binding.animationView.visibility = View.GONE
         })
 
+        // Observa los errores del ViewModel
         viewModel.error.observe(viewLifecycleOwner) {
-            // Mostrar el error
+            // Muestra el error
             Toast.makeText(requireContext(), "An error occurred", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun initRecyclerView() {
+        // Configura el RecyclerView
         binding.rvUsers.adapter = adapter
         binding.rvUsers.layoutManager = GridLayoutManager(requireActivity(), 2)
+    }
+
+    private fun initListeners(){
+        binding.swiperv.setOnRefreshListener {
+            initRecyclerView()
+            binding.swiperv.isRefreshing = false
+        }
     }
 }
